@@ -12,10 +12,23 @@ angular.module('billAngularJsApp')
 
 		$scope.bill = null;
 
+		$scope.formatDate = function(date) {
+			// dd/mm/yyyy format
+			date = new Date(date);
+			date = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear();
+			return date;
+		};
+
 		$http.get('https://still-scrubland-9880.herokuapp.com/bill.json').
 		then(function(response) {
 			$scope.error = false;
 			$scope.bill  = response.data;
+			// dates
+			$scope.dateFrom  = $scope.formatDate($scope.bill.statement.period.from);
+			$scope.dateTo    = $scope.formatDate($scope.bill.statement.period.to);
+			$scope.generated = $scope.formatDate($scope.bill.statement.generated);
+			$scope.due       = $scope.formatDate($scope.bill.statement.due);
+			// total cost
 			$scope.total = ($scope.bill.package.total + $scope.bill.callCharges.total + $scope.bill.skyStore.total).toFixed(2);
 		}, function(response) {
 			$scope.error = true;
