@@ -1,0 +1,182 @@
+// bower:scss
+// endbower
+
+$fontBody: 16;
+$border: 15px;
+$green: #79B33C;
+
+// MIXINS
+@mixin font-size($value) {
+  font-size: $value*$fontBody + px;
+}
+
+@mixin border-radius($radius1, $radius2, $radius3, $radius4) {
+  -webkit-border-radius: $radius1 $radius2 $radius3 $radius4;
+  -moz-border-radius: $radius1 $radius2 $radius3 $radius4;
+  -o-border-radius: $radius1 $radius2 $radius3 $radius4;
+  -ms-border-radius: $radius1 $radius2 $radius3 $radius4;
+  border-radius: $radius1 $radius2 $radius3 $radius4;
+}
+// END MIXINS
+
+* {
+  margin: 0;
+  padding: 0;
+  background-clip: padding-box;  
+  -moz-background-clip: padding;  
+  -webkit-background-clip: padding;
+  outline: none !important;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body{
+  height:100%
+}
+
+body {
+  @include font-size(1);
+  font-family: 'Roboto', sans-serif;
+  position:relative;
+}
+
+#container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+.ng-enter {
+  -webkit-transition: 1s;
+  transition: 1s;
+  opacity: 0;
+}
+
+.ng-enter-active {
+  opacity: 1;
+}
+
+#bill, #total-cost {
+  text-transform: uppercase;
+  color: $green;
+  font-weight: 700;
+  @include font-size(2);
+}
+
+#total-cost {
+  margin-top: 20px;
+}
+
+.box {
+  margin-top: 20px;
+  overflow: auto;
+
+  .title {
+    text-transform: uppercase;
+    background-color: $green;
+    padding: 5px;
+    font-weight: 700;
+    color: #fff;
+    @include border-radius(0, 0, $border, 0);
+  }
+
+  ul {
+    padding: 10px;
+  }
+
+  span {
+    font-weight: 700;
+  }
+
+  .total {
+    text-transform: uppercase;
+    @include border-radius($border, 0, 0, 0);
+    background-color: $green;
+    padding: 5px;
+    font-weight: 700;
+    color: #fff;
+    float: right;
+  }
+
+}
+
+li {
+  list-style: none;
+}
+
+.table {
+  display: table;
+  width: 100%;
+  border: 1px solid #ddd;
+  margin: 10px 0px;
+  box-sizing: border-box;
+  @include border-radius(4px, 4px, 4px, 4px);
+}
+
+.row {
+  display: table-row;
+  height: 100%;
+  &:last-child {
+    .cell1, .cell2, .cell3 {
+      border-bottom: none;
+    }
+  }
+}
+
+.cell2, .cell3 {
+  display: table-cell;
+  height: 100%;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  @include font-size(0.8);
+  padding: 5px;
+  text-align: center;
+  vertical-align: middle;
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.cell2 {
+  width: 50%;
+}
+
+.cell3 {
+  width: 33.33%;
+}
+
+.fields {
+  text-align: center;
+  font-weight: 700;
+  cursor: pointer;
+  .cell2, .cell3 {
+    div {
+      display: inline-block;
+    }
+  }
+}
+
+#loading {
+  margin: auto;
+  display: block;
+}
+
+#error {
+  text-align: center;
+}
+
+.triangle-up {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 5px 10px 5px;
+  border-color: transparent transparent #000 transparent;
+}
+
+.triangle-down {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 5px 0 5px;
+  border-color: #000 transparent transparent transparent;
+}

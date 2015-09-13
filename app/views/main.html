@@ -1,0 +1,111 @@
+<img id="loading" src="images/loading.gif" ng-if="!bill && !error" />
+
+<div id="error" ng-show="error">
+  An error ocurred, please try again later
+</div>
+
+<div ng-hide="error">
+  <div id="bill">bill</div>
+
+  <div class="box">
+    <div class="title">statement</div>
+    <ul>
+      <li>Period: {{bill.statement.period.from}} - {{bill.statement.period.to}}</li>
+      <li>Generated: {{bill.statement.generated}}</li>
+      <li>Due: {{bill.statement.due}}</li>
+    </ul>
+  </div>
+
+  <div class="box">
+    <div class="title">subscriptions</div>
+    <div class="table" ng-hide="error">
+      <div class="row fields">
+        <div class="cell3" ng-click="orderSubcriptions('type')">
+          <div>Type</div>
+          <div ng-show="subcription === 'type'" ng-class="{'triangle-up':reverseSub,'triangle-down':!reverseSub}"></div>
+        </div>
+        <div class="cell3" ng-click="orderSubcriptions('name')">
+          <div>Name</div>
+          <div ng-show="subcription === 'name'" ng-class="{'triangle-up':reverseSub,'triangle-down':!reverseSub}"></div>
+        </div>
+        <div class="cell3" ng-click="orderSubcriptions('cost')">
+          <div>Cost</div>
+          <div ng-show="subcription === 'cost'" ng-class="{'triangle-up':reverseSub,'triangle-down':!reverseSub}"></div>
+        </div>
+      </div>
+      <div class="row" ng-repeat="subscription in bill.package.subscriptions | orderBy:subcription:reverseSub">
+        <div class="cell3" ng-bind="subscription.type"></div>
+        <div class="cell3" ng-bind="subscription.name"></div>
+        <div class="cell3" ng-bind="subscription.cost"></div>
+      </div>
+    </div>
+    <div class="total">total: &#163; {{bill.package.total}}</div>
+  </div>
+
+  <div class="box">
+    <div class="title">calls</div>
+    <div class="table" ng-hide="error">
+      <div class="row fields">
+        <div class="cell3" ng-click="orderCalls('called')">
+          <div>Called</div>
+          <div ng-show="call === 'called'" ng-class="{'triangle-up':reverseCalls,'triangle-down':!reverseCalls}"></div>
+        </div>
+        <div class="cell3" ng-click="orderCalls('duration')">
+          <div>Duration</div>
+          <div ng-show="call === 'duration'" ng-class="{'triangle-up':reverseCalls,'triangle-down':!reverseCalls}"></div>
+        </div>
+        <div class="cell3" ng-click="orderCalls('cost')">
+          <div>Cost</div>
+          <div ng-show="call === 'cost'" ng-class="{'triangle-up':reverseCalls,'triangle-down':!reverseCalls}"></div>
+        </div>
+      </div>
+      <div class="row" ng-repeat="calls in bill.callCharges.calls | orderBy:call:reverseCalls">
+        <div class="cell3" ng-bind="calls.called"></div>
+        <div class="cell3" ng-bind="calls.duration"></div>
+        <div class="cell3" ng-bind="calls.cost"></div>
+      </div>
+    </div>
+    <div class="total">total: &#163; {{bill.callCharges.total}}</div>
+  </div>
+
+  <div class="box">
+    <div class="title">skyStore</div>
+    <span>Rentals</span>
+    <div class="table" ng-hide="error">
+      <div class="row fields">
+        <div class="cell2" ng-click="orderRentals('title')">
+          <div>Title</div>
+          <div ng-show="rental === 'title'" ng-class="{'triangle-up':reverseRentals,'triangle-down':!reverseRentals}"></div>
+        </div>
+        <div class="cell2" ng-click="orderRentals('cost')">
+          <div>Name</div>
+          <div ng-show="rental === 'cost'" ng-class="{'triangle-up':reverseRentals,'triangle-down':!reverseRentals}"></div>
+        </div>
+      </div>
+      <div class="row" ng-repeat="rental in bill.skyStore.rentals | orderBy:rental:reverseRentals">
+        <div class="cell2" ng-bind="rental.title"></div>
+        <div class="cell2" ng-bind="rental.cost"></div>
+      </div>
+    </div>
+    <span>Boughts</span>
+    <div class="table" ng-hide="error">
+      <div class="row fields">
+        <div class="cell2" ng-click="orderBoughts('title')">
+          <div>Title</div>
+          <div ng-show="bought === 'title'" ng-class="{'triangle-up':reverseBought,'triangle-down':!reverseBought}"></div>
+        </div>
+        <div class="cell2" ng-click="orderBoughts('name')">
+          <div>Name</div>
+          <div ng-show="bought === 'name'" ng-class="{'triangle-up':reverseBought,'triangle-down':!reverseBought}"></div>
+        </div>
+      </div>
+      <div class="row" ng-repeat="bought in bill.skyStore.buyAndKeep | orderBy:bought:reverseBought">
+        <div class="cell2" ng-bind="bought.title"></div>
+        <div class="cell2" ng-bind="bought.cost"></div>
+      </div>
+    </div>
+    <div class="total">total: &#163; {{bill.skyStore.total}}</div>
+  </div>
+
+  <div id="total-cost">total cost: &#163; {{total}}</div>
+</div>
